@@ -3,38 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Une petite proposition</title>
+
+<title>Une petite proposition...</title>
 
 <style>
 
 body{
     margin:0;
-    font-family:Georgia, serif;
-    background:linear-gradient(135deg,#fdfcf9,#f6f2ea);
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    min-height:100vh;
+    background:linear-gradient(135deg,#fdfcf9,#f6f2ea);
+    font-family:Georgia, serif;
+    padding:20px;
 }
 
 .card{
+    width:100%;
+    max-width:650px;
     background:white;
-    width:90%;
-    max-width:600px;
-    text-align:center;
     padding:50px;
+    text-align:center;
     border-radius:24px;
     box-shadow:0 20px 50px rgba(0,0,0,.08);
 }
 
+h1{
+    font-weight:normal;
+}
+
 button{
-    padding:15px 30px;
     border:none;
-    border-radius:50px;
+    padding:16px 34px;
+    border-radius:999px;
     background:#1f2937;
     color:white;
-    cursor:pointer;
     font-size:16px;
+    cursor:pointer;
 }
 
 </style>
@@ -53,7 +59,7 @@ J'ai une petite proposition à te faire... 😊
 
 <br>
 
-<button onclick="location.href='question.html'">
+<button onclick="window.location.href='question.html'">
 Découvrir
 </button>
 
