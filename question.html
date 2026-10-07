@@ -2,663 +2,823 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="theme-color"
-        content="#f4ede4"
-    >
-
-    <title>Une petite question...</title>
-
-    <style>
-        :root {
-            --background-start: #fffaf5;
-            --background-end: #eaded2;
-            --card-background: rgba(255, 255, 255, 0.94);
-            --primary: #312821;
-            --primary-hover: #493b32;
-            --secondary: #eee7e0;
-            --secondary-hover: #e4dad1;
-            --text: #302a26;
-            --muted: #766d66;
-            --accent: #a8785d;
-            --border: rgba(99, 76, 60, 0.12);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            min-height: 100%;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            min-height: 100dvh;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding:
-                max(18px, env(safe-area-inset-top))
-                max(18px, env(safe-area-inset-right))
-                max(18px, env(safe-area-inset-bottom))
-                max(18px, env(safe-area-inset-left));
-
-            overflow: hidden;
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            color: var(--text);
-
-            background:
-                radial-gradient(
-                    circle at 15% 15%,
-                    rgba(255, 255, 255, 0.95),
-                    transparent 35%
-                ),
-                radial-gradient(
-                    circle at 85% 85%,
-                    rgba(190, 151, 127, 0.20),
-                    transparent 38%
-                ),
-                linear-gradient(
-                    135deg,
-                    var(--background-start),
-                    var(--background-end)
-                );
-        }
-
-        body::before,
-        body::after {
-            content: "";
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            filter: blur(2px);
-        }
-
-        body::before {
-            width: 280px;
-            height: 280px;
-            top: -130px;
-            right: -100px;
-
-            background:
-                rgba(184, 135, 106, 0.12);
-        }
-
-        body::after {
-            width: 220px;
-            height: 220px;
-            bottom: -110px;
-            left: -80px;
 
-            background:
-                rgba(255, 255, 255, 0.45);
-        }
+<meta charset="UTF-8">
 
-        .card {
-            position: relative;
-            z-index: 1;
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-            width: min(100%, 740px);
+<title>Une petite question...</title>
 
-            padding: clamp(30px, 5vw, 58px);
+<style>
 
-            overflow: hidden;
+*{
+    box-sizing:border-box;
+}
 
-            text-align: center;
+body{
+    margin:0;
+    min-height:100vh;
 
-            border:
-                1px solid
-                rgba(255, 255, 255, 0.75);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-            border-radius: 30px;
+    padding:20px;
 
-            background:
-                var(--card-background);
+    background:
+        linear-gradient(
+            135deg,
+            #fdfcf9,
+            #f6f2ea
+        );
 
-            box-shadow:
-                0 30px 80px rgba(73, 54, 43, 0.14),
-                0 5px 15px rgba(73, 54, 43, 0.05);
+    font-family:
+        Georgia,
+        serif;
 
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+    color:#222;
+}
 
-            animation:
-                cardEntrance 700ms
-                cubic-bezier(0.22, 1, 0.36, 1)
-                both;
-        }
+.card{
+    width:100%;
+    max-width:700px;
 
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+    padding:50px 35px;
 
-            margin-bottom: 18px;
-            padding: 8px 14px;
+    background:white;
 
-            border:
-                1px solid
-                rgba(168, 120, 93, 0.18);
+    border-radius:24px;
 
-            border-radius: 999px;
+    text-align:center;
 
-            color: var(--accent);
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.08);
+}
 
-            background:
-                rgba(168, 120, 93, 0.07);
+h1{
+    margin:
+        0 0 32px;
 
-            font-family:
-                Arial,
-                sans-serif;
+    font-size:
+        clamp(
+            1.6rem,
+            5vw,
+            2rem
+        );
 
-            font-size: 12px;
-            font-weight: 600;
+    font-weight:normal;
+    line-height:1.5;
+}
 
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
+.zone{
+    position:relative;
 
-        .eyebrow-dot {
-            width: 6px;
-            height: 6px;
+    width:100%;
+    height:350px;
 
-            border-radius: 50%;
+    overflow:hidden;
 
-            background: var(--accent);
+    border:
+        1px solid
+        #eee7df;
 
-            box-shadow:
-                0 0 0 4px
-                rgba(168, 120, 93, 0.10);
-        }
+    border-radius:18px;
 
-        h1 {
-            max-width: 620px;
+    background:
+        #faf8f5;
+}
 
-            margin:
-                0 auto
-                clamp(18px, 3vw, 28px);
+/* Bouton principal */
 
-            font-size:
-                clamp(1.75rem, 5vw, 2.65rem);
+#oui{
+    position:absolute;
+    z-index:20;
 
-            font-weight: normal;
-            line-height: 1.28;
+    left:50%;
+    bottom:24px;
 
-            letter-spacing: -0.025em;
-        }
+    padding:
+        16px 30px;
 
-        .subheading {
-            margin: 0 auto 12px;
+    transform:
+        translateX(-50%);
 
-            color: var(--muted);
+    border:0;
+    border-radius:999px;
 
-            font-family:
-                Arial,
-                sans-serif;
+    background:#1f2937;
+    color:white;
 
-            font-size:
-                clamp(0.92rem, 2.4vw, 1rem);
+    font-size:16px;
 
-            line-height: 1.6;
-        }
+    cursor:pointer;
 
-        .zone {
-            position: relative;
+    transition:
+        transform .2s,
+        box-shadow .2s;
+}
 
-            width: 100%;
-            height: clamp(340px, 47vh, 410px);
+#oui:hover{
+    transform:
+        translateX(-50%)
+        scale(1.03);
 
-            margin-top: 10px;
+    box-shadow:
+        0 10px 24px
+        rgba(31,41,55,.22);
+}
 
-            overflow: hidden;
+#oui.pulse{
+    animation:
+        pulse 1s infinite;
+}
 
-            border:
-                1px solid
-                var(--border);
+/* Bloc contenant Non merci et sa phrase */
 
-            border-radius: 24px;
+#nonBloc{
+    position:absolute;
+    z-index:10;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(250, 247, 243, 0.80),
-                    rgba(244, 237, 231, 0.54)
-                );
-        }
+    top:38px;
+    left:50%;
 
-        .zone::before {
-            content: "";
-            position: absolute;
-            inset: 0;
+    width:240px;
 
-            pointer-events: none;
+    transform:
+        translateX(-50%);
 
-            background-image:
-                radial-gradient(
-                    rgba(168, 120, 93, 0.12) 0.7px,
-                    transparent 0.7px
-                );
+    text-align:center;
 
-            background-size: 15px 15px;
-        }
+    transition:
+        left .22s ease,
+        top .22s ease,
+        opacity .28s ease;
+}
 
-        #oui {
-            position: absolute;
-            z-index: 20;
+#non{
+    padding:
+        15px 28px;
 
-            left: 50%;
-            bottom: 28px;
+    border:0;
+    border-radius:999px;
 
-            width: max-content;
-            max-width: calc(100% - 30px);
+    background:#e5e7eb;
+    color:#333;
 
-            padding: 16px 30px;
+    font-size:16px;
 
-            transform: translateX(-50%);
+    cursor:pointer;
 
-            border: 0;
-            border-radius: 999px;
+    transition:
+        transform .22s ease,
+        opacity .22s ease;
+}
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #312821,
-                    #4b3c32
-                );
+#phrase{
+    min-height:42px;
 
-            color: white;
+    margin-top:9px;
 
-            box-shadow:
-                0 12px 28px
-                rgba(49, 40, 33, 0.22);
+    color:#666;
 
-            font-family:
-                Arial,
-                sans-serif;
+    font:
+        italic
+        14px/1.4
+        Arial,
+        sans-serif;
+}
 
-            font-size: 16px;
-            font-weight: 600;
+.tip{
+    margin:
+        18px 0 0;
 
-            cursor: pointer;
+    color:#666;
 
-            transition:
-                transform 220ms ease,
-                box-shadow 220ms ease,
-                background 220ms ease;
-        }
+    font:
+        italic
+        14px/1.5
+        Arial,
+        sans-serif;
+}
 
-        #oui:hover {
-            transform:
-                translateX(-50%)
-                translateY(-2px)
-                scale(1.025);
+#finalMessage{
+    display:none;
 
-            box-shadow:
-                0 16px 34px
-                rgba(49, 40, 33, 0.28);
-        }
+    position:absolute;
 
-        #oui:active {
-            transform:
-                translateX(-50%)
-                scale(0.98);
-        }
+    top:42%;
+    left:50%;
 
-        #oui.attention {
-            animation:
-                yesPulse 950ms
-                ease-in-out
-                infinite;
-        }
+    width:90%;
 
-        #oui.valide {
-            background:
-                linear-gradient(
-                    135deg,
-                    #6f5545,
-                    #9a7058
-                );
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
 
-            animation: none;
-        }
+    color:#8b5e49;
 
-        #nonBloc {
-            position: absolute;
-            z-index: 10;
+    font:
+        600
+        16px/1.5
+        Arial,
+        sans-serif;
+}
 
-            top: 38px;
-            left: 50%;
+@keyframes pulse{
 
-            width: min(270px, calc(100% - 20px));
+    50%{
+        transform:
+            translateX(-50%)
+            scale(1.05);
+    }
 
-            transform: translateX(-50%);
+}
 
-            text-align: center;
+@media(max-width:600px){
 
-            transition:
-                left 290ms
-                cubic-bezier(0.22, 1, 0.36, 1),
+    .card{
+        padding:
+            34px 20px;
+    }
 
-                top 290ms
-                cubic-bezier(0.22, 1, 0.36, 1),
+    .zone{
+        height:390px;
+    }
 
-                opacity 350ms ease;
-        }
+    #nonBloc{
+        width:210px;
+    }
 
-        #non {
-            padding: 14px 27px;
+    #oui{
+        padding:
+            15px 24px;
 
-            border:
-                1px solid
-                rgba(84, 69, 59, 0.10);
+        font-size:15px;
+    }
 
-            border-radius: 999px;
+}
 
-            color: #453c36;
+</style>
 
-            background: var(--secondary);
-
-            box-shadow:
-                0 6px 16px
-                rgba(73, 54, 43, 0.08);
-
-            font-family:
-                Arial,
-                sans-serif;
-
-            font-size: 15px;
-            font-weight: 500;
-
-            cursor: pointer;
-
-            transform: scale(1);
-
-            transition:
-                transform 260ms ease,
-                opacity 300ms ease,
-                background 200ms ease;
-        }
-
-        #non:hover {
-            background: var(--secondary-hover);
-        }
-
-        #phrase {
-            width: 100%;
-            min-height: 41px;
-
-            margin-top: 10px;
-            padding: 0 4px;
-
-            color: var(--muted);
-
-            font-family:
-                Arial,
-                sans-serif;
-
-            font-size:
-                clamp(0.77rem, 2.5vw, 0.9rem);
-
-            font-style: italic;
-            line-height: 1.4;
-
-            opacity: 0;
-
-            transition:
-                opacity 180ms ease,
-                transform 180ms ease;
-
-            transform: translateY(-4px);
-        }
-
-        #phrase.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .tip {
-            margin:
-                clamp(18px, 3vw, 25px)
-                auto 0;
-
-            color: var(--muted);
-
-            font-family:
-                Arial,
-                sans-serif;
-
-            font-size:
-                clamp(0.82rem, 2.5vw, 0.95rem);
-
-            font-style: italic;
-            line-height: 1.5;
-        }
-
-        .final-message {
-            display: none;
-
-            position: absolute;
-            z-index: 12;
-
-            top: 45%;
-            left: 50%;
-
-            width: calc(100% - 36px);
-
-            color: var(--accent);
-
-            font-family:
-                Arial,
-                sans-serif;
-
-            font-size:
-                clamp(0.95rem, 3vw, 1.12rem);
-
-            font-weight: 600;
-            line-height: 1.5;
-
-            transform:
-                translate(-50%, -50%);
-
-            animation:
-                finalMessageEntrance
-                550ms ease both;
-        }
-
-        @keyframes cardEntrance {
-            from {
-                opacity: 0;
-                transform:
-                    translateY(18px)
-                    scale(0.985);
-            }
-
-            to {
-                opacity: 1;
-                transform:
-                    translateY(0)
-                    scale(1);
-            }
-        }
-
-        @keyframes yesPulse {
-            0%,
-            100% {
-                transform:
-                    translateX(-50%)
-                    scale(1);
-
-                box-shadow:
-                    0 12px 28px
-                    rgba(49, 40, 33, 0.22);
-            }
-
-            50% {
-                transform:
-                    translateX(-50%)
-                    scale(1.045);
-
-                box-shadow:
-                    0 18px 38px
-                    rgba(49, 40, 33, 0.32);
-            }
-        }
-
-        @keyframes finalMessageEntrance {
-            from {
-                opacity: 0;
-                transform:
-                    translate(-50%, -40%)
-                    scale(0.96);
-            }
-
-            to {
-                opacity: 1;
-                transform:
-                    translate(-50%, -50%)
-                    scale(1);
-            }
-        }
-
-        @media (max-width: 600px) {
-            body {
-                align-items: stretch;
-                overflow: auto;
-            }
-
-            .card {
-                margin: auto 0;
-                padding: 30px 19px;
-                border-radius: 24px;
-            }
-
-            .zone {
-                height: min(405px, 53vh);
-                min-height: 350px;
-            }
-
-            #nonBloc {
-                width: min(235px, calc(100% - 14px));
-            }
-
-            #oui {
-                bottom: 22px;
-                padding: 15px 24px;
-                font-size: 15px;
-            }
-
-            #non {
-                padding: 13px 23px;
-                font-size: 14px;
-            }
-        }
-
-        @media (max-height: 700px) {
-            body {
-                align-items: stretch;
-                overflow: auto;
-            }
-
-            .card {
-                margin: auto;
-                padding-top: 28px;
-                padding-bottom: 28px;
-            }
-
-            .zone {
-                height: 335px;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                scroll-behavior: auto !important;
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
-    <main class="card">
+<main class="card">
 
-        <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            Une invitation
-        </div>
+<h1>
+Et si on passait une soirée ensemble
+la semaine prochaine ?
+</h1>
 
-        <h1>
-            Et si on passait une soirée ensemble
-            la semaine prochaine ?
-        </h1>
+<div
+    class="zone"
+    id="zone"
+>
 
-        <p class="subheading">
-            Il semblerait qu'une décision importante
-            doive être prise.
-        </p>
+    <div id="nonBloc">
 
-        <section
-            class="zone"
-            id="zone"
-            aria-label="Choix de la réponse"
+        <button
+            id="non"
+            type="button"
         >
+            Non merci
+        </button>
 
-            <div id="nonBloc">
+        <div
+            id="phrase"
+            aria-live="polite"
+        ></div>
 
-                <button
-                    id="non"
-                    type="button"
-                >
-                    Non merci
-                </button>
+    </div>
 
-                <div
-                    id="phrase"
-                    aria-live="polite"
-                ></div>
+    <div id="finalMessage">
 
-            </div>
+        Cette option a officiellement disparu.
 
-            <div
-                class="final-message"
-                id="finalMessage"
-                aria-live="polite"
-            >
-                Cette option a officiellement disparu.<br>
-                Quelle malchance...
-            </div>
+        <br>
 
-            <button
-                id="oui"
-                type="button"
-            >
-                Je me laisse tenter
-            </button>
+        Quelle malchance... 😌
 
-        </section>
+    </div>
 
-        <p class="tip">
-            Par curiosité, essaie de cliquer sur
-            « Non merci
+    <button
+        id="oui"
+        type="button"
+    >
+        Je me laisse tenter
+    </button>
+
+</div>
+
+<p class="tip">
+
+Par curiosité, essaie de cliquer sur
+« Non merci »... 😉
+
+</p>
+
+</main>
+
+<script>
+
+/*
+Messages affichés dans l'ordre,
+avec une progression crescendo.
+*/
+
+const messages = [
+
+    "Bien essayé 😏",
+
+    "Raté.",
+
+    "Toujours pas.",
+
+    "Essaie encore.",
+
+    "Presque !",
+
+    "Tu chauffes... ou pas.",
+
+    "Cette option semble indisponible.",
+
+    "Je préférais l'autre bouton.",
+
+    "Décidément, tu es tenace.",
+
+    "Je vois que tu es persévérante.",
+
+    "Quel acharnement.",
+
+    "Je commence à admirer ta détermination.",
+
+    "Je t'assure que l'autre bouton fonctionne très bien.",
+
+    "Tu croyais vraiment que c'était une option ? 😌",
+
+    "Bon... tu as assez joué maintenant.",
+
+    "Tu sais très bien lequel tu vas finir par choisir.",
+
+    "Dernière chance... enfin, façon de parler.",
+
+    "Cette option va bientôt disparaître.",
+
+    "C'était pourtant prévisible.",
+
+    "Fin de la négociation 😌"
+
+];
+
+
+/*
+Récupération des éléments
+de la page.
+*/
+
+const zone =
+    document.getElementById("zone");
+
+const bloc =
+    document.getElementById("nonBloc");
+
+const boutonNon =
+    document.getElementById("non");
+
+const boutonOui =
+    document.getElementById("oui");
+
+const phrase =
+    document.getElementById("phrase");
+
+const finalMessage =
+    document.getElementById(
+        "finalMessage"
+    );
+
+
+let essais = 0;
+
+let disparu = false;
+
+
+/*
+Détermine si deux zones
+se chevauchent.
+*/
+
+function chevauche(
+    rectangleA,
+    rectangleB,
+    marge
+){
+
+    return !(
+
+        rectangleA.right + marge
+            < rectangleB.left
+
+        ||
+
+        rectangleA.left - marge
+            > rectangleB.right
+
+        ||
+
+        rectangleA.bottom + marge
+            < rectangleB.top
+
+        ||
+
+        rectangleA.top - marge
+            > rectangleB.bottom
+
+    );
+
+}
+
+
+/*
+Recherche une position qui
+ne chevauche pas le bouton Oui.
+*/
+
+function trouverPosition(){
+
+    const largeurZone =
+        zone.clientWidth;
+
+    const hauteurZone =
+        zone.clientHeight;
+
+    const largeurBloc =
+        Math.min(
+            bloc.offsetWidth,
+            largeurZone - 20
+        );
+
+    const hauteurBloc =
+        bloc.offsetHeight;
+
+
+    const zoneBoutonOui = {
+
+        left:
+            boutonOui.offsetLeft
+            - boutonOui.offsetWidth / 2,
+
+        right:
+            boutonOui.offsetLeft
+            + boutonOui.offsetWidth / 2,
+
+        top:
+            boutonOui.offsetTop,
+
+        bottom:
+            boutonOui.offsetTop
+            + boutonOui.offsetHeight
+
+    };
+
+
+    for(
+        let tentative = 0;
+        tentative < 80;
+        tentative++
+    ){
+
+        const positionX =
+
+            largeurBloc / 2
+            + 10
+            + Math.random()
+
+            * Math.max(
+                0,
+                largeurZone
+                - largeurBloc
+                - 20
+            );
+
+
+        const positionY =
+
+            10
+            + Math.random()
+
+            * Math.max(
+                0,
+                hauteurZone
+                - hauteurBloc
+                - 20
+            );
+
+
+        const candidat = {
+
+            left:
+                positionX
+                - largeurBloc / 2,
+
+            right:
+                positionX
+                + largeurBloc / 2,
+
+            top:
+                positionY,
+
+            bottom:
+                positionY
+                + hauteurBloc
+
+        };
+
+
+        if(
+            !chevauche(
+                candidat,
+                zoneBoutonOui,
+                20
+            )
+        ){
+
+            return {
+
+                x:positionX,
+
+                y:positionY
+
+            };
+
+        }
+
+    }
+
+
+    return {
+
+        x:
+            largeurZone / 2,
+
+        y:20
+
+    };
+
+}
+
+
+/*
+Déplace et rétrécit
+le bouton Non.
+*/
+
+function fuite(evenement){
+
+    if(evenement){
+
+        evenement.preventDefault();
+
+        evenement.stopPropagation();
+
+    }
+
+
+    if(disparu){
+
+        return;
+
+    }
+
+
+    essais++;
+
+
+    const indexMessage =
+
+        Math.min(
+            essais - 1,
+            messages.length - 1
+        );
+
+
+    phrase.textContent =
+        messages[indexMessage];
+
+
+    /*
+    Rétrécissement progressif.
+    */
+
+    const progression =
+
+        essais
+        / messages.length;
+
+
+    const echelle =
+
+        Math.max(
+            0.12,
+            1
+            - progression * 0.88
+        );
+
+
+    const opacite =
+
+        Math.max(
+            0.2,
+            1
+            - progression * 0.75
+        );
+
+
+    boutonNon.style.transform =
+
+        "scale("
+        + echelle
+        + ")";
+
+
+    boutonNon.style.opacity =
+
+        String(opacite);
+
+
+    /*
+    Disparition après le
+    dernier message.
+    */
+
+    if(
+        essais
+        >= messages.length
+    ){
+
+        disparu = true;
+
+        bloc.style.opacity = "0";
+
+
+        setTimeout(
+            function(){
+
+                bloc.style.display =
+                    "none";
+
+                finalMessage.style.display =
+                    "block";
+
+                boutonOui.classList.add(
+                    "pulse"
+                );
+
+            },
+            280
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+    Nouvelle position.
+    */
+
+    const position =
+        trouverPosition();
+
+
+    bloc.style.left =
+
+        position.x
+        + "px";
+
+
+    bloc.style.top =
+
+        position.y
+        + "px";
+
+}
+
+
+/*
+PC : le bouton fuit lorsque
+la souris arrive dessus.
+*/
+
+boutonNon.addEventListener(
+
+    "mouseenter",
+
+    fuite
+
+);
+
+
+/*
+PC : sécurité si le clic arrive
+tout de même à passer.
+*/
+
+boutonNon.addEventListener(
+
+    "click",
+
+    fuite
+
+);
+
+
+/*
+Téléphone et tablette :
+le bouton fuit lors du toucher.
+*/
+
+boutonNon.addEventListener(
+
+    "touchstart",
+
+    fuite,
+
+    {
+        passive:false
+    }
+
+);
+
+
+/*
+Clic sur le bouton principal.
+*/
+
+boutonOui.addEventListener(
+
+    "click",
+
+    function(){
+
+        /*
+        Empêche un double clic.
+        */
+
+        boutonOui.disabled =
+            true;
+
+
+        boutonOui.classList.remove(
+            "pulse"
+        );
+
+
+        boutonOui.textContent =
+
+            "Excellent choix, Elise 😌";
+
+
+        localStorage.setItem(
+
+            "reponse",
+
+            "oui"
+
+        );
+
+
+        /*
+        Redirection vers dates.html.
+        */
+
+        setTimeout(
+
+            function(){
+
+                window.location.href =
+
+                    "dates.html";
+
+            },
+
+            1000
+
+        );
+
+    }
+
+);
+
+</script>
+
+</body>
+
+</html>
