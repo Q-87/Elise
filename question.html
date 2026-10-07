@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
 <title>Une petite question...</title>
 
 <style>
-
 *{
     box-sizing:border-box;
 }
@@ -17,8 +15,8 @@ body{
     margin:0;
     min-height:100vh;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     background:#f8f6f2;
     font-family:Georgia, serif;
     padding:20px;
@@ -30,28 +28,26 @@ body{
     max-width:650px;
     padding:40px 30px;
     border-radius:24px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
     text-align:center;
 }
 
 h2{
     font-weight:normal;
-    color:#222;
     line-height:1.5;
-    margin-bottom:35px;
+    margin-bottom:30px;
 }
 
 .arena{
     position:relative;
+    height:320px;
     width:100%;
-    height:300px;
-    margin:auto;
     overflow:hidden;
 }
 
 #yesBtn{
     position:absolute;
-    bottom:15px;
+    bottom:20px;
     left:50%;
     transform:translateX(-50%);
     background:#1f2937;
@@ -59,18 +55,17 @@ h2{
     border:none;
     border-radius:30px;
     padding:15px 30px;
-    font-size:16px;
     cursor:pointer;
+    font-size:16px;
     z-index:10;
 }
 
 #escapeContainer{
     position:absolute;
     left:50%;
-    top:30px;
+    top:40px;
     transform:translateX(-50%);
     text-align:center;
-    transition:all .25s ease;
 }
 
 #noBtn{
@@ -78,20 +73,20 @@ h2{
     border:none;
     border-radius:30px;
     padding:15px 30px;
-    font-size:16px;
     cursor:pointer;
+    font-size:16px;
 }
 
 #message{
-    margin-top:8px;
     min-height:24px;
+    margin-top:8px;
     color:#666;
     font-style:italic;
     font-size:14px;
 }
 
 .tip{
-    margin-top:15px;
+    margin-top:20px;
     color:#666;
     font-style:italic;
 }
@@ -102,17 +97,11 @@ h2{
         padding:30px 20px;
     }
 
-    h2{
-        font-size:1.4rem;
+    .arena{
+        height:360px;
     }
 
-    #yesBtn,
-    #noBtn{
-        font-size:15px;
-        padding:14px 24px;
-    }
 }
-
 </style>
 </head>
 
@@ -126,24 +115,24 @@ Et si on passait une soirée ensemble la semaine prochaine ?
 
 <div class="arena">
 
-<div id="escapeContainer">
+    <div id="escapeContainer">
 
-<button id="noBtn">
-Non merci
-</button>
+        <button id="noBtn">
+            Non merci
+        </button>
 
-<div id="message"></div>
+        <div id="message"></div>
 
-</div>
+    </div>
 
-<button id="yesBtn">
-Je me laisse tenter
-</button>
+    <button id="yesBtn">
+        Je me laisse tenter
+    </button>
 
 </div>
 
 <div class="tip">
-Par curiosité, essaie de cliquer sur "Non merci"... 😉
+Par curiosité, essaie de cliquer sur "Non merci"...
 </div>
 
 </div>
@@ -151,103 +140,79 @@ Par curiosité, essaie de cliquer sur "Non merci"... 😉
 <script>
 
 const phrases = [
-
-"Bien essayé 😏",
-"Raté.",
+"Bien essaye.",
+"Rate.",
 "Toujours pas.",
-"Je vois que tu es persévérante.",
+"Je vois que tu es perseverante.",
 "Cette option semble indisponible.",
 "Essaie encore.",
 "Tu chauffes... ou pas.",
-"Je préférais l'autre bouton.",
-"Tu croyais vraiment que c'était une option ? 😌",
-"Décidément...",
+"Je preferais l'autre bouton.",
+"Tu croyais vraiment que c'etait une option ?",
+"Decidement...",
 "Quel acharnement.",
-"Je t'assure que l'autre bouton fonctionne très bien.",
+"Je t'assure que l'autre bouton fonctionne tres bien.",
 "Presque !",
 "Non, non et toujours non.",
-"C'est pourtant écrit « Non merci »...",
-"Je commence à admirer ta détermination."
-
+"C'est pourtant ecrit Non merci...",
+"Je commence a admirer ta determination."
 ];
 
-let attempts = 0;
+let tentatives = 0;
 
-const arena = document.querySelector('.arena');
-const escapeContainer = document.getElementById('escapeContainer');
-const noBtn = document.getElementById('noBtn');
-const yesBtn = document.getElementById('yesBtn');
-const message = document.getElementById('message');
+const arena = document.querySelector(".arena");
+const escapeContainer = document.getElementById("escapeContainer");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
 
 function moveButton(){
 
+    tentatives++;
 
-    attempts++;
+    const largeur = arena.clientWidth - 220;
+    const hauteur = arena.clientHeight - 140;
 
-    const arenaWidth = arena.clientWidth;
-    const arenaHeight = arena.clientHeight;
-
-    const forbiddenBottom = 90;
-
-    const maxX = arenaWidth - 220;
-    const maxY = arenaHeight - forbiddenBottom - 80;
-
-    const x = Math.max(10, Math.random() * maxX);
-    const y = Math.max(10, Math.random() * maxY);
+    const x = Math.max(10, Math.random() * largeur);
+    const y = Math.max(10, Math.random() * hauteur);
 
     escapeContainer.style.left = x + "px";
     escapeContainer.style.top = y + "px";
 
     let phrase =
-        phrases[Math.floor(Math.random()*phrases.length)];
+        phrases[Math.floor(Math.random() * phrases.length)];
 
-    if(attempts === 8){
-        phrase = "Bon... tu as assez joué maintenant 😄";
+    if(tentatives === 8){
+        phrase = "Bon... tu as assez joue maintenant.";
     }
 
-    if(attempts === 12){
-        phrase = "Tu sais très bien lequel tu vas finir par choisir.";
+    if(tentatives === 12){
+        phrase = "Tu sais tres bien lequel tu vas finir par choisir.";
     }
 
     message.textContent = phrase;
 
-    if(attempts > 10){
-
-        const scale =
-            Math.max(0.65, 1 - (attempts-10)*0.03);
-
-        noBtn.style.transform =
-            `scale(${scale})`;
-    }
 }
 
-noBtn.addEventListener('mouseenter', moveButton);
+noBtn.addEventListener("mouseenter", moveButton);
 
-noBtn.addEventListener('touchstart', function(e){
-
+noBtn.addEventListener("click", function(e){
     e.preventDefault();
     moveButton();
-
 });
 
-noBtn.addEventListener('click', function(e){
-
+noBtn.addEventListener("touchstart", function(e){
     e.preventDefault();
     moveButton();
-
 });
 
-yesBtn.addEventListener('click', function(){
+yesBtn.addEventListener("click", function(){
 
-    yesBtn.innerHTML =
-        "Excellent choix 😌";
+    yesBtn.textContent = "Excellent choix";
 
     setTimeout(function(){
-
-        window.location.href =
-            "dates.html";
-
-    },1000);
+        alert("Succes ! La suite arrive ensuite.");
+    }, 800);
 
 });
 
