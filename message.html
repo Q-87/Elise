@@ -16,7 +16,7 @@ body{
     justify-content:center;
     align-items:center;
     background:linear-gradient(135deg,#fdfcf9,#f6f2ea);
-    font-family:Georgia, serif;
+    font-family:Georgia,serif;
     padding:20px;
 }
 
@@ -30,40 +30,56 @@ body{
     box-shadow:0 20px 50px rgba(0,0,0,.08);
 }
 
+h2{
+    font-weight:normal;
+    color:#222;
+}
+
+.intro{
+    color:#666;
+    font-style:italic;
+}
+
+.exemples{
+    margin:30px 0;
+    color:#777;
+    line-height:1.8;
+}
+
 textarea{
     width:100%;
     height:160px;
     padding:15px;
-    border-radius:12px;
     border:1px solid #ddd;
+    border-radius:16px;
+    font-size:15px;
+    resize:none;
+    font-family:Arial,sans-serif;
 }
 
 button{
-    margin-top:20px;
+    margin-top:25px;
     border:none;
     padding:16px 34px;
     border-radius:999px;
     background:#1f2937;
     color:white;
+    font-size:16px;
     cursor:pointer;
 }
 
-</style>
-
-<script>
-
-function continuer(){
-
-    localStorage.setItem(
-        "message",
-        document.getElementById("msg").value
-    );
-
-    window.location.href =
-        "confirmation.html";
+button:disabled{
+    opacity:.7;
+    cursor:wait;
 }
 
-</script>
+#etat{
+    margin-top:15px;
+    color:#666;
+    font-size:14px;
+}
+
+</style>
 
 </head>
 
@@ -75,27 +91,106 @@ function continuer(){
 Un petit mot à me laisser ?
 </h2>
 
-<p>
+<p class="intro">
 Facultatif, mais vivement recommandé 😉
 </p>
 
-<p>
+<div class="exemples">
+
 "Ça a intérêt à être bien."
+
 <br><br>
+
 "J'espère que la compagnie sera agréable."
+
 <br><br>
+
 "J'accepte, mais je garde un droit de regard sur le dessert."
-</p>
-
-<textarea id="msg"></textarea>
-
-<br>
-
-<button onclick="continuer()">
-Valider
-</button>
 
 </div>
 
+<textarea
+id="msg"
+placeholder="À toi de jouer..."
+></textarea>
+
+<br>
+
+<button
+id="btnValider"
+onclick="envoyerReponse()"
+>
+Valider
+</button>
+
+<div id="etat"></div>
+
+</div>
+
+<script>
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyQt4Ej-jqZTOHG2YogGgJ05umu43SV7p4qkqiFPJTaq_qzpTPGLvwht6eYPhIhc1fuBA/exec";
+
+async function envoyerReponse(){
+
+    const bouton =
+        document.getElementById("btnValider");
+
+    const etat =
+        document.getElementById("etat");
+
+    bouton.disabled = true;
+
+    etat.innerText =
+        "Enregistrement en cours...";
+
+    const message =
+        document.getElementById("msg").value;
+
+    const dateChoisie =
+        localStorage.getItem("dateChoisie");
+
+    try{
+
+        await fetch(
+            SCRIPT_URL,
+            {
+                method:"POST",
+                body:JSON.stringify({
+                    date:dateChoisie,
+                    message:message
+                })
+            }
+        );
+
+        localStorage.setItem(
+            "message",
+            message
+        );
+
+        localStorage.setItem(
+            "reponseEnvoyee",
+            "oui"
+        );
+
+        window.location.href =
+            "confirmation.html";
+
+    }
+    catch(erreur){
+
+        etat.innerText =
+            "Impossible d'enregistrer la réponse. Réessaie.";
+
+        bouton.disabled = false;
+
+    }
+
+}
+
+</script>
+
 </body>
+
 </html>
