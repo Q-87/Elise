@@ -2,217 +2,663 @@
 <html lang="fr">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>Une petite question...</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<style>
+    <meta
+        name="theme-color"
+        content="#f4ede4"
+    >
 
-*{
-    box-sizing:border-box;
-}
+    <title>Une petite question...</title>
 
-body{
-    margin:0;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(135deg,#fdfcf9,#f6f2ea);
-    font-family:Georgia, serif;
-    padding:20px;
-}
+    <style>
+        :root {
+            --background-start: #fffaf5;
+            --background-end: #eaded2;
+            --card-background: rgba(255, 255, 255, 0.94);
+            --primary: #312821;
+            --primary-hover: #493b32;
+            --secondary: #eee7e0;
+            --secondary-hover: #e4dad1;
+            --text: #302a26;
+            --muted: #766d66;
+            --accent: #a8785d;
+            --border: rgba(99, 76, 60, 0.12);
+        }
 
-.card{
-    width:100%;
-    max-width:700px;
-    background:white;
-    border-radius:24px;
-    padding:50px 35px;
-    text-align:center;
-    box-shadow:0 20px 50px rgba(0,0,0,.08);
-}
+        * {
+            box-sizing: border-box;
+        }
 
-h1{
-    font-size:2rem;
-    font-weight:normal;
-    color:#222;
-    line-height:1.5;
-    margin-bottom:40px;
-}
+        html,
+        body {
+            min-height: 100%;
+        }
 
-.zone{
-    position:relative;
-    width:100%;
-    height:320px;
-}
+        body {
+            margin: 0;
+            min-height: 100vh;
+            min-height: 100dvh;
 
-#oui{
-    position:absolute;
-    bottom:20px;
-    left:50%;
-    transform:translateX(-50%);
-    background:#1f2937;
-    color:white;
-    border:none;
-    border-radius:999px;
-    padding:16px 34px;
-    font-size:16px;
-    cursor:pointer;
-    z-index:20;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-#nonBloc{
-    position:absolute;
-    left:50%;
-    top:40px;
-    transform:translateX(-50%);
-}
+            padding:
+                max(18px, env(safe-area-inset-top))
+                max(18px, env(safe-area-inset-right))
+                max(18px, env(safe-area-inset-bottom))
+                max(18px, env(safe-area-inset-left));
 
-#non{
-    background:#e5e7eb;
-    color:#333;
-    border:none;
-    border-radius:999px;
-    padding:16px 34px;
-    font-size:16px;
-    cursor:pointer;
-}
+            overflow: hidden;
 
-#phrase{
-    margin-top:10px;
-    min-height:30px;
-    color:#666;
-    font-style:italic;
-    font-size:14px;
-}
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
 
-.tip{
-    margin-top:15px;
-    color:#666;
-    font-style:italic;
-}
+            color: var(--text);
 
-</style>
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(255, 255, 255, 0.95),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 85% 85%,
+                    rgba(190, 151, 127, 0.20),
+                    transparent 38%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--background-start),
+                    var(--background-end)
+                );
+        }
 
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(2px);
+        }
+
+        body::before {
+            width: 280px;
+            height: 280px;
+            top: -130px;
+            right: -100px;
+
+            background:
+                rgba(184, 135, 106, 0.12);
+        }
+
+        body::after {
+            width: 220px;
+            height: 220px;
+            bottom: -110px;
+            left: -80px;
+
+            background:
+                rgba(255, 255, 255, 0.45);
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+
+            width: min(100%, 740px);
+
+            padding: clamp(30px, 5vw, 58px);
+
+            overflow: hidden;
+
+            text-align: center;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.75);
+
+            border-radius: 30px;
+
+            background:
+                var(--card-background);
+
+            box-shadow:
+                0 30px 80px rgba(73, 54, 43, 0.14),
+                0 5px 15px rgba(73, 54, 43, 0.05);
+
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            animation:
+                cardEntrance 700ms
+                cubic-bezier(0.22, 1, 0.36, 1)
+                both;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 18px;
+            padding: 8px 14px;
+
+            border:
+                1px solid
+                rgba(168, 120, 93, 0.18);
+
+            border-radius: 999px;
+
+            color: var(--accent);
+
+            background:
+                rgba(168, 120, 93, 0.07);
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow-dot {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: var(--accent);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(168, 120, 93, 0.10);
+        }
+
+        h1 {
+            max-width: 620px;
+
+            margin:
+                0 auto
+                clamp(18px, 3vw, 28px);
+
+            font-size:
+                clamp(1.75rem, 5vw, 2.65rem);
+
+            font-weight: normal;
+            line-height: 1.28;
+
+            letter-spacing: -0.025em;
+        }
+
+        .subheading {
+            margin: 0 auto 12px;
+
+            color: var(--muted);
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size:
+                clamp(0.92rem, 2.4vw, 1rem);
+
+            line-height: 1.6;
+        }
+
+        .zone {
+            position: relative;
+
+            width: 100%;
+            height: clamp(340px, 47vh, 410px);
+
+            margin-top: 10px;
+
+            overflow: hidden;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(250, 247, 243, 0.80),
+                    rgba(244, 237, 231, 0.54)
+                );
+        }
+
+        .zone::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            pointer-events: none;
+
+            background-image:
+                radial-gradient(
+                    rgba(168, 120, 93, 0.12) 0.7px,
+                    transparent 0.7px
+                );
+
+            background-size: 15px 15px;
+        }
+
+        #oui {
+            position: absolute;
+            z-index: 20;
+
+            left: 50%;
+            bottom: 28px;
+
+            width: max-content;
+            max-width: calc(100% - 30px);
+
+            padding: 16px 30px;
+
+            transform: translateX(-50%);
+
+            border: 0;
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #312821,
+                    #4b3c32
+                );
+
+            color: white;
+
+            box-shadow:
+                0 12px 28px
+                rgba(49, 40, 33, 0.22);
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size: 16px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                transform 220ms ease,
+                box-shadow 220ms ease,
+                background 220ms ease;
+        }
+
+        #oui:hover {
+            transform:
+                translateX(-50%)
+                translateY(-2px)
+                scale(1.025);
+
+            box-shadow:
+                0 16px 34px
+                rgba(49, 40, 33, 0.28);
+        }
+
+        #oui:active {
+            transform:
+                translateX(-50%)
+                scale(0.98);
+        }
+
+        #oui.attention {
+            animation:
+                yesPulse 950ms
+                ease-in-out
+                infinite;
+        }
+
+        #oui.valide {
+            background:
+                linear-gradient(
+                    135deg,
+                    #6f5545,
+                    #9a7058
+                );
+
+            animation: none;
+        }
+
+        #nonBloc {
+            position: absolute;
+            z-index: 10;
+
+            top: 38px;
+            left: 50%;
+
+            width: min(270px, calc(100% - 20px));
+
+            transform: translateX(-50%);
+
+            text-align: center;
+
+            transition:
+                left 290ms
+                cubic-bezier(0.22, 1, 0.36, 1),
+
+                top 290ms
+                cubic-bezier(0.22, 1, 0.36, 1),
+
+                opacity 350ms ease;
+        }
+
+        #non {
+            padding: 14px 27px;
+
+            border:
+                1px solid
+                rgba(84, 69, 59, 0.10);
+
+            border-radius: 999px;
+
+            color: #453c36;
+
+            background: var(--secondary);
+
+            box-shadow:
+                0 6px 16px
+                rgba(73, 54, 43, 0.08);
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size: 15px;
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transform: scale(1);
+
+            transition:
+                transform 260ms ease,
+                opacity 300ms ease,
+                background 200ms ease;
+        }
+
+        #non:hover {
+            background: var(--secondary-hover);
+        }
+
+        #phrase {
+            width: 100%;
+            min-height: 41px;
+
+            margin-top: 10px;
+            padding: 0 4px;
+
+            color: var(--muted);
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size:
+                clamp(0.77rem, 2.5vw, 0.9rem);
+
+            font-style: italic;
+            line-height: 1.4;
+
+            opacity: 0;
+
+            transition:
+                opacity 180ms ease,
+                transform 180ms ease;
+
+            transform: translateY(-4px);
+        }
+
+        #phrase.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tip {
+            margin:
+                clamp(18px, 3vw, 25px)
+                auto 0;
+
+            color: var(--muted);
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size:
+                clamp(0.82rem, 2.5vw, 0.95rem);
+
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .final-message {
+            display: none;
+
+            position: absolute;
+            z-index: 12;
+
+            top: 45%;
+            left: 50%;
+
+            width: calc(100% - 36px);
+
+            color: var(--accent);
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size:
+                clamp(0.95rem, 3vw, 1.12rem);
+
+            font-weight: 600;
+            line-height: 1.5;
+
+            transform:
+                translate(-50%, -50%);
+
+            animation:
+                finalMessageEntrance
+                550ms ease both;
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform:
+                    translateY(18px)
+                    scale(0.985);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+        @keyframes yesPulse {
+            0%,
+            100% {
+                transform:
+                    translateX(-50%)
+                    scale(1);
+
+                box-shadow:
+                    0 12px 28px
+                    rgba(49, 40, 33, 0.22);
+            }
+
+            50% {
+                transform:
+                    translateX(-50%)
+                    scale(1.045);
+
+                box-shadow:
+                    0 18px 38px
+                    rgba(49, 40, 33, 0.32);
+            }
+        }
+
+        @keyframes finalMessageEntrance {
+            from {
+                opacity: 0;
+                transform:
+                    translate(-50%, -40%)
+                    scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translate(-50%, -50%)
+                    scale(1);
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                align-items: stretch;
+                overflow: auto;
+            }
+
+            .card {
+                margin: auto 0;
+                padding: 30px 19px;
+                border-radius: 24px;
+            }
+
+            .zone {
+                height: min(405px, 53vh);
+                min-height: 350px;
+            }
+
+            #nonBloc {
+                width: min(235px, calc(100% - 14px));
+            }
+
+            #oui {
+                bottom: 22px;
+                padding: 15px 24px;
+                font-size: 15px;
+            }
+
+            #non {
+                padding: 13px 23px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-height: 700px) {
+            body {
+                align-items: stretch;
+                overflow: auto;
+            }
+
+            .card {
+                margin: auto;
+                padding-top: 28px;
+                padding-bottom: 28px;
+            }
+
+            .zone {
+                height: 335px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="card">
+    <main class="card">
 
-<h1>
-Et si on passait une soirée ensemble la semaine prochaine ?
-</h1>
+        <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Une invitation
+        </div>
 
-<div class="zone">
+        <h1>
+            Et si on passait une soirée ensemble
+            la semaine prochaine ?
+        </h1>
 
-<div id="nonBloc">
+        <p class="subheading">
+            Il semblerait qu'une décision importante
+            doive être prise.
+        </p>
 
-<button id="non">
-Non merci
-</button>
+        <section
+            class="zone"
+            id="zone"
+            aria-label="Choix de la réponse"
+        >
 
-<div id="phrase"></div>
+            <div id="nonBloc">
 
-</div>
+                <button
+                    id="non"
+                    type="button"
+                >
+                    Non merci
+                </button>
 
-<button id="oui">
-Je me laisse tenter
-</button>
+                <div
+                    id="phrase"
+                    aria-live="polite"
+                ></div>
 
-</div>
+            </div>
 
-<div class="tip">
-Par curiosité, essaie de cliquer sur "Non merci"... 😉
-</div>
+            <div
+                class="final-message"
+                id="finalMessage"
+                aria-live="polite"
+            >
+                Cette option a officiellement disparu.<br>
+                Quelle malchance...
+            </div>
 
-</div>
+            <button
+                id="oui"
+                type="button"
+            >
+                Je me laisse tenter
+            </button>
 
-<script>
+        </section>
 
-const phrases = [
-
-"Bien essayé 😏",
-"Raté.",
-"Toujours pas.",
-"Je vois que tu es persévérante.",
-"Cette option semble indisponible.",
-"Essaie encore.",
-"Tu chauffes... ou pas.",
-"Je préférais l'autre bouton.",
-"Tu croyais vraiment que c'était une option ? 😌",
-"Décidément...",
-"Quel acharnement.",
-"Je t'assure que l'autre bouton fonctionne très bien.",
-"Presque !",
-"Non, non et toujours non.",
-"C'est pourtant écrit « Non merci »...",
-"Je commence à admirer ta détermination."
-
-];
-
-const bloc = document.getElementById("nonBloc");
-const boutonNon = document.getElementById("non");
-const boutonOui = document.getElementById("oui");
-const phrase = document.getElementById("phrase");
-
-let tentatives = 0;
-
-function fuite(){
-
-    tentatives++;
-
-    const zone = document.querySelector(".zone");
-
-    const largeur = zone.clientWidth - 220;
-    const hauteur = 150;
-
-    const x = Math.max(10,Math.random()*largeur);
-    const y = Math.max(10,Math.random()*hauteur);
-
-    bloc.style.left = x + "px";
-    bloc.style.top = y + "px";
-
-    let texte =
-        phrases[Math.floor(Math.random()*phrases.length)];
-
-    if(tentatives === 8){
-        texte = "Bon... tu as assez joué maintenant 😄";
-    }
-
-    if(tentatives === 12){
-        texte = "Tu sais très bien lequel tu vas finir par choisir.";
-    }
-
-    phrase.innerText = texte;
-}
-
-boutonNon.addEventListener("mouseenter", fuite);
-boutonNon.addEventListener("click", function(e){
-    e.preventDefault();
-    fuite();
-});
-
-boutonNon.addEventListener("touchstart", function(e){
-    e.preventDefault();
-    fuite();
-});
-
-boutonOui.addEventListener("click", function(){
-
-    boutonOui.innerText = "Excellent choix, Elise 😌";
-
-    setTimeout(function(){
-
-        window.location.href = "dates.html";
-
-    },1200);
-
-});
-
-</script>
-
-</body>
-</html>
+        <p class="tip">
+            Par curiosité, essaie de cliquer sur
+            « Non merci
