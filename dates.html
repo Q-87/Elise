@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,39 +11,55 @@
 
 body{
     margin:0;
-    font-family:Georgia, serif;
-    background:linear-gradient(135deg,#fdfcf9,#f6f2ea);
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    min-height:100vh;
+    background:linear-gradient(135deg,#fdfcf9,#f6f2ea);
+    font-family:Georgia, serif;
+    padding:20px;
 }
 
 .card{
-    background:white;
+    width:100%;
     max-width:700px;
-    width:90%;
-    padding:40px;
-    border-radius:25px;
-    text-align:center;
+    background:white;
+    padding:50px 35px;
+    border-radius:24px;
     box-shadow:0 20px 50px rgba(0,0,0,.08);
+    text-align:center;
 }
 
 .date{
-    display:block;
     width:100%;
-    margin:10px 0;
-    padding:15px;
+    margin:8px 0;
+    padding:16px;
     border:none;
-    border-radius:15px;
-    cursor:pointer;
+    border-radius:14px;
     background:#f3f4f6;
+    cursor:pointer;
+    font-size:16px;
 }
 
-.locked{
+.date:hover{
     background:#e5e7eb;
-    color:#888;
+}
+
+.bloque{
+    background:#ececec;
+    color:#999;
     cursor:not-allowed;
+}
+
+#zoneCalendrier{
+    display:none;
+    margin-top:20px;
+}
+
+input[type="date"]{
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ddd;
 }
 
 </style>
@@ -51,9 +68,45 @@ body{
 
 function choisir(date){
 
-    localStorage.setItem("dateChoisie",date);
+    localStorage.setItem(
+        "dateChoisie",
+        date
+    );
 
-    window.location.href="message.html";
+    window.location.href =
+        "message.html";
+}
+
+function afficherCalendrier(){
+
+    document.getElementById(
+        "zoneCalendrier"
+    ).style.display="block";
+}
+
+function validerAutreDate(){
+
+    const date =
+        document.getElementById(
+            "autreDate"
+        ).value;
+
+    if(!date){
+
+        alert(
+            "Sélectionne une date 😊"
+        );
+
+        return;
+    }
+
+    localStorage.setItem(
+        "dateChoisie",
+        date
+    );
+
+    window.location.href =
+        "message.html";
 }
 
 </script>
@@ -65,42 +118,66 @@ function choisir(date){
 <div class="card">
 
 <h2>
-Excellent choix, Mademoiselle Elise.
+Excellent choix, Elise. 😊
 </h2>
 
 <p>
-Quel créneau te conviendrait le mieux ?
+Reste maintenant à trouver le bon moment...
 </p>
 
-<button class="date locked">
+<button class="date bloque" disabled>
+
 🔒 Lundi 12 octobre au soir
-<br>
-(indisponible pour cause de L'Amour est dans le Pré)
+
+<br><br>
+
+(indisponible pour cause de L'Amour est dans le Pré 📺❤️)
+
 </button>
 
-<button class="date" onclick="choisir('13 octobre')">
+<button class="date"
+onclick="choisir('Mardi 13 octobre')">
 🌙 Mardi 13 octobre au soir
 </button>
 
-<button class="date" onclick="choisir('14 octobre')">
+<button class="date"
+onclick="choisir('Mercredi 14 octobre')">
 🌙 Mercredi 14 octobre au soir
 </button>
 
-<button class="date" onclick="choisir('15 octobre')">
+<button class="date"
+onclick="choisir('Jeudi 15 octobre')">
 🌙 Jeudi 15 octobre au soir
 </button>
 
-<button class="date" onclick="choisir('16 octobre')">
+<button class="date"
+onclick="choisir('Vendredi 16 octobre')">
 🌙 Vendredi 16 octobre au soir
 </button>
 
-<button class="date" onclick="choisir('20 octobre')">
-✨ Mardi 20 octobre
+<button class="date"
+onclick="afficherCalendrier()">
+✨ Choisir une autre date
 </button>
 
-<button class="date" onclick="choisir('21 octobre')">
-✨ Mercredi 21 octobre
+<div id="zoneCalendrier">
+
+<br>
+
+<input
+type="date"
+id="autreDate"
+min="2026-10-20"
+max="2026-10-21">
+
+<br><br>
+
+<button class="date"
+onclick="validerAutreDate()">
+Valider cette date
 </button>
+
+</div>
 
 </div>
 
