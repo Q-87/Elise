@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,69 +9,108 @@
 
 <style>
 
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
-    font-family:Georgia, serif;
-    background:#f8f6f2;
-    display:flex;
-    justify-content:center;
-    align-items:center;
     min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f8f6f2;
+    font-family:Georgia, serif;
+    padding:20px;
 }
 
 .card{
     background:white;
-    padding:40px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
-    text-align:center;
+    width:100%;
     max-width:650px;
-    width:90%;
+    padding:40px 30px;
+    border-radius:24px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    text-align:center;
 }
 
 h2{
-    color:#222;
     font-weight:normal;
-    margin-bottom:30px;
+    color:#222;
+    line-height:1.5;
+    margin-bottom:35px;
 }
 
-.buttons{
+.arena{
     position:relative;
-    height:180px;
-    margin-top:20px;
-}
-
-button{
-    padding:15px 25px;
-    border:none;
-    border-radius:30px;
-    cursor:pointer;
-    font-size:16px;
+    width:100%;
+    height:300px;
+    margin:auto;
+    overflow:hidden;
 }
 
 #yesBtn{
+    position:absolute;
+    bottom:15px;
+    left:50%;
+    transform:translateX(-50%);
     background:#1f2937;
     color:white;
+    border:none;
+    border-radius:30px;
+    padding:15px 30px;
+    font-size:16px;
+    cursor:pointer;
+    z-index:10;
+}
+
+#escapeContainer{
+    position:absolute;
+    left:50%;
+    top:30px;
+    transform:translateX(-50%);
+    text-align:center;
+    transition:all .25s ease;
 }
 
 #noBtn{
-    position:absolute;
-    left:60%;
-    top:70px;
     background:#d1d5db;
+    border:none;
+    border-radius:30px;
+    padding:15px 30px;
+    font-size:16px;
+    cursor:pointer;
 }
 
-.message{
-    margin-top:20px;
-    min-height:30px;
+#message{
+    margin-top:8px;
+    min-height:24px;
+    color:#666;
+    font-style:italic;
+    font-size:14px;
+}
+
+.tip{
+    margin-top:15px;
     color:#666;
     font-style:italic;
 }
 
-.tip{
-    margin-top:20px;
-    color:#555;
-    font-style:italic;
+@media(max-width:600px){
+
+    .card{
+        padding:30px 20px;
+    }
+
+    h2{
+        font-size:1.4rem;
+    }
+
+    #yesBtn,
+    #noBtn{
+        font-size:15px;
+        padding:14px 24px;
+    }
 }
 
 </style>
@@ -84,19 +124,23 @@ button{
 Et si on passait une soirée ensemble la semaine prochaine ?
 </h2>
 
-<div class="buttons">
+<div class="arena">
 
-<button id="yesBtn">
-Je me laisse tenter
-</button>
+<div id="escapeContainer">
 
 <button id="noBtn">
 Non merci
 </button>
 
+<div id="message"></div>
+
 </div>
 
-<div class="message" id="message"></div>
+<button id="yesBtn">
+Je me laisse tenter
+</button>
+
+</div>
 
 <div class="tip">
 Par curiosité, essaie de cliquer sur "Non merci"... 😉
@@ -106,7 +150,8 @@ Par curiosité, essaie de cliquer sur "Non merci"... 😉
 
 <script>
 
-const messages = [
+const phrases = [
+
 "Bien essayé 😏",
 "Raté.",
 "Toujours pas.",
@@ -123,34 +168,85 @@ const messages = [
 "Non, non et toujours non.",
 "C'est pourtant écrit « Non merci »...",
 "Je commence à admirer ta détermination."
+
 ];
 
-const noBtn = document.getElementById("noBtn");
-const message = document.getElementById("message");
+let attempts = 0;
+
+const arena = document.querySelector('.arena');
+const escapeContainer = document.getElementById('escapeContainer');
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const message = document.getElementById('message');
 
 function moveButton(){
 
-    const x = Math.random()*250;
-    const y = Math.random()*100;
 
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+    attempts++;
 
-    const randomMessage =
-        messages[Math.floor(Math.random()*messages.length)];
+    const arenaWidth = arena.clientWidth;
+    const arenaHeight = arena.clientHeight;
 
-    message.textContent = randomMessage;
+    const forbiddenBottom = 90;
+
+    const maxX = arenaWidth - 220;
+    const maxY = arenaHeight - forbiddenBottom - 80;
+
+    const x = Math.max(10, Math.random() * maxX);
+    const y = Math.max(10, Math.random() * maxY);
+
+    escapeContainer.style.left = x + "px";
+    escapeContainer.style.top = y + "px";
+
+    let phrase =
+        phrases[Math.floor(Math.random()*phrases.length)];
+
+    if(attempts === 8){
+        phrase = "Bon... tu as assez joué maintenant 😄";
+    }
+
+    if(attempts === 12){
+        phrase = "Tu sais très bien lequel tu vas finir par choisir.";
+    }
+
+    message.textContent = phrase;
+
+    if(attempts > 10){
+
+        const scale =
+            Math.max(0.65, 1 - (attempts-10)*0.03);
+
+        noBtn.style.transform =
+            `scale(${scale})`;
+    }
 }
 
-noBtn.addEventListener('mouseover', moveButton);
-noBtn.addEventListener('click', moveButton);
+noBtn.addEventListener('mouseenter', moveButton);
 
-document.getElementById("yesBtn").addEventListener("click", function(){
+noBtn.addEventListener('touchstart', function(e){
 
-    this.innerHTML = "Excellent choix 😌";
+    e.preventDefault();
+    moveButton();
 
-    setTimeout(() => {
-       window.location.href = "dates.html";
+});
+
+noBtn.addEventListener('click', function(e){
+
+    e.preventDefault();
+    moveButton();
+
+});
+
+yesBtn.addEventListener('click', function(){
+
+    yesBtn.innerHTML =
+        "Excellent choix 😌";
+
+    setTimeout(function(){
+
+        window.location.href =
+            "dates.html";
+
     },1000);
 
 });
