@@ -1,1 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Une petite question...</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:20px;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia, serif;
+    background:#f8f6f2;
+}
+
+.carte{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    text-align:center;
+    width:100%;
+    max-width:700px;
+}
+
+h1{
+    font-weight:normal;
+    color:#333;
+    margin-bottom:30px;
+}
+
+#zone-boutons{
+    position:relative;
+    height:350px;
+}
+
+#oui{
+    position:absolute;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    padding:15px 30px;
+    border:none;
+    border-radius:30px;
+    background:#1f2937;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+#non-container{
+    position:absolute;
+    top:50px;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+}
+
+#non{
+    padding:15px 30px;
+    border:none;
+    border-radius:30px;
+    background:#d1d5db;
+    font-size:16px;
+    cursor:pointer;
+}
+
+#phrase{
+    margin-top:10px;
+    min-height:25px;
+    color:#666;
+    font-style:italic;
+    font-size:14px;
+}
+
+.astuce{
+    margin-top:15px;
+    color:#666;
+    font-style:italic;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="carte">
+
+<h1>
+Et si on passait une soirée ensemble la semaine prochaine ?
+</h1>
+
+<div id="zone-boutons">
+
+<div id="non-container">
+
+<button id="non">
+Non merci
+</button>
+
+<div id="phrase"></div>
+
+</div>
+
+<button id="oui">
+Je me laisse tenter
+</button>
+
+</div>
+
+<div class="astuce">
+Par curiosité, essaie de cliquer sur "Non merci"... 😉
+</div>
+
+</div>
+
+<script>
+
+const phrases = [
+
+"Bien essayé 😏",
+"Raté.",
+"Toujours pas.",
+"Je vois que tu es persévérante.",
+"Cette option semble indisponible.",
+"Essaie encore.",
+"Tu chauffes... ou pas.",
+"Je préférais l'autre bouton.",
+"Tu croyais vraiment que c'était une option ? 😌",
+"Décidément...",
+"Quel acharnement.",
+"Je t'assure que l'autre bouton fonctionne très bien.",
+"Presque !",
+"Non, non et toujours non.",
+"C'est pourtant écrit « Non merci »...",
+"Je commence à admirer ta détermination."
+
+];
+
+const boutonNon = document.getElementById("non");
+const conteneurNon = document.getElementById("non-container");
+const phrase = document.getElementById("phrase");
+const boutonOui = document.getElementById("oui");
+
+let tentatives = 0;
+
+function deplacerBouton(){
+
+    tentatives++;
+
+    const zone = document.getElementById("zone-boutons");
+
+    const largeur = zone.clientWidth - 220;
+    const hauteur = 180;
+
+    const x = Math.random() * largeur;
+    const y = Math.random() * hauteur;
+
+    conteneurNon.style.left = x + "px";
+    conteneurNon.style.top = y + "px";
+
+    if(tentatives === 8){
+
+        phrase.innerText =
+        "Bon... tu as assez joué maintenant 😄";
+
+    }else if(tentatives === 12){
+
+        phrase.innerText =
+        "Tu sais très bien lequel tu vas finir par choisir.";
+
+    }else{
+
+        phrase.innerText =
+        phrases[Math.floor(Math.random()*phrases.length)];
+
+    }
+
+}
+
+boutonNon.addEventListener("mouseenter", deplacerBouton);
+
+boutonNon.addEventListener("click", function(e){
+
+    e.preventDefault();
+    deplacerBouton();
+
+});
+
+boutonNon.addEventListener("touchstart", function(e){
+
+    e.preventDefault();
+    deplacerBouton();
+
+});
+
+boutonOui.addEventListener("click", function(){
+
+    boutonOui.innerText =
+    "Excellent choix 😌";
+
+    setTimeout(function(){
+
+        alert("La page des dates sera ajoutée ensuite.");
+
+    },1000);
+
+});
+
+</script>
+
+</body>
+
+</html>
