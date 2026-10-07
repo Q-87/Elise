@@ -30,6 +30,10 @@ body{
     box-shadow:0 20px 50px rgba(0,0,0,.08);
 }
 
+small{
+    color:#777;
+}
+
 </style>
 
 </head>
@@ -50,7 +54,58 @@ Je passerai te récupérer à 19h00.
 Tu n'as plus qu'à être prête, je m'occupe du reste.
 </p>
 
+<small id="etat"></small>
+
 </div>
+
+<script>
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyQt4Ej-jqZTOHG2YogGgJ05umu43SV7p4qkqiFPJTaq_qzpTPGLvwht6eYPhIhc1fuBA/exec";
+
+const dejaEnvoye =
+localStorage.getItem("reponseEnvoyee");
+
+if(!dejaEnvoye){
+
+    fetch(SCRIPT_URL, {
+
+        method: "POST",
+
+        body: JSON.stringify({
+
+            date:
+            localStorage.getItem("dateChoisie"),
+
+            message:
+            localStorage.getItem("message")
+
+        })
+
+    })
+    .then(function(){
+
+        localStorage.setItem(
+            "reponseEnvoyee",
+            "oui"
+        );
+
+        document.getElementById("etat")
+            .innerText =
+            "";
+
+    })
+    .catch(function(){
+
+        document.getElementById("etat")
+            .innerText =
+            "";
+
+    });
+
+}
+
+</script>
 
 </body>
 </html>
