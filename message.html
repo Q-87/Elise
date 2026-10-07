@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,38 +11,41 @@
 
 body{
     margin:0;
-    font-family:Georgia, serif;
-    background:linear-gradient(135deg,#fdfcf9,#f6f2ea);
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    min-height:100vh;
+    background:linear-gradient(135deg,#fdfcf9,#f6f2ea);
+    font-family:Georgia, serif;
+    padding:20px;
 }
 
 .card{
-    background:white;
-    width:90%;
+    width:100%;
     max-width:700px;
-    padding:40px;
-    text-align:center;
+    background:white;
+    padding:50px 35px;
     border-radius:24px;
+    text-align:center;
     box-shadow:0 20px 50px rgba(0,0,0,.08);
 }
 
 textarea{
     width:100%;
-    height:150px;
+    height:160px;
     padding:15px;
-    border-radius:15px;
+    border-radius:12px;
+    border:1px solid #ddd;
 }
 
 button{
     margin-top:20px;
-    padding:15px 30px;
+    border:none;
+    padding:16px 34px;
+    border-radius:999px;
     background:#1f2937;
     color:white;
-    border:none;
-    border-radius:50px;
+    cursor:pointer;
 }
 
 </style>
@@ -55,7 +59,8 @@ function continuer(){
         document.getElementById("msg").value
     );
 
-    window.location.href="confirmation.html";
+    window.location.href =
+        "confirmation.html";
 }
 
 </script>
