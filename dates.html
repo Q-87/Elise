@@ -1,1 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Choix de la date</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Georgia, serif;
+    background:linear-gradient(135deg,#fdfcf9,#f6f2ea);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.card{
+    background:white;
+    max-width:700px;
+    width:90%;
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.08);
+}
+
+.date{
+    display:block;
+    width:100%;
+    margin:10px 0;
+    padding:15px;
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    background:#f3f4f6;
+}
+
+.locked{
+    background:#e5e7eb;
+    color:#888;
+    cursor:not-allowed;
+}
+
+</style>
+
+<script>
+
+function choisir(date){
+
+    localStorage.setItem("dateChoisie",date);
+
+    window.location.href="message.html";
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>
+Excellent choix, Mademoiselle Elise.
+</h2>
+
+<p>
+Quel créneau te conviendrait le mieux ?
+</p>
+
+<button class="date locked">
+🔒 Lundi 12 octobre au soir
+<br>
+(indisponible pour cause de L'Amour est dans le Pré)
+</button>
+
+<button class="date" onclick="choisir('13 octobre')">
+🌙 Mardi 13 octobre au soir
+</button>
+
+<button class="date" onclick="choisir('14 octobre')">
+🌙 Mercredi 14 octobre au soir
+</button>
+
+<button class="date" onclick="choisir('15 octobre')">
+🌙 Jeudi 15 octobre au soir
+</button>
+
+<button class="date" onclick="choisir('16 octobre')">
+🌙 Vendredi 16 octobre au soir
+</button>
+
+<button class="date" onclick="choisir('20 octobre')">
+✨ Mardi 20 octobre
+</button>
+
+<button class="date" onclick="choisir('21 octobre')">
+✨ Mercredi 21 octobre
+</button>
+
+</div>
+
+</body>
+</html>
