@@ -5,150 +5,96 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Choix de la date</title>
+<title>Une petite question...</title>
 
 <style>
+
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
     min-height:100vh;
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     background:linear-gradient(135deg,#fdfcf9,#f6f2ea);
     font-family:Georgia, serif;
     padding:20px;
 }
 
 .card{
-
     width:100%;
     max-width:700px;
-
     background:white;
-
-    padding:50px 35px;
-
     border-radius:24px;
-
-    box-shadow:
-    0 20px 50px rgba(0,0,0,.08);
-
+    padding:50px 35px;
     text-align:center;
-
+    box-shadow:0 20px 50px rgba(0,0,0,.08);
 }
 
-h2{
-
+h1{
+    font-size:2rem;
     font-weight:normal;
     color:#222;
-
+    line-height:1.5;
+    margin-bottom:40px;
 }
 
-.date{
-
+.zone{
+    position:relative;
     width:100%;
+    height:320px;
+}
 
-    margin:8px 0;
-
-    padding:16px;
-
+#oui{
+    position:absolute;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#1f2937;
+    color:white;
     border:none;
-
-    border-radius:14px;
-
-    background:#f3f4f6;
-
+    border-radius:999px;
+    padding:16px 34px;
+    font-size:16px;
     cursor:pointer;
-
-    font-size:16px;
-
-    transition:.2s;
-
+    z-index:20;
 }
 
-.date:hover{
+#nonBloc{
+    position:absolute;
+    left:50%;
+    top:40px;
+    transform:translateX(-50%);
+}
 
+#non{
     background:#e5e7eb;
-
-}
-
-.bloque{
-
-    background:#ececec;
-
-    color:#999;
-
-    cursor:not-allowed;
-
-}
-
-#zoneCalendrier{
-
-    display:none;
-
-    margin-top:20px;
-
-}
-
-input[type="date"]{
-
-    padding:12px;
-
-    border-radius:10px;
-
-    border:1px solid #ddd;
-
+    color:#333;
+    border:none;
+    border-radius:999px;
+    padding:16px 34px;
     font-size:16px;
+    cursor:pointer;
+}
 
+#phrase{
+    margin-top:10px;
+    min-height:30px;
+    color:#666;
+    font-style:italic;
+    font-size:14px;
+}
+
+.tip{
+    margin-top:15px;
+    color:#666;
+    font-style:italic;
 }
 
 </style>
-
-<script>
-
-function choisir(date){
-
-    localStorage.setItem(
-        "dateChoisie",
-        date
-    );
-
-    window.location.href =
-        "message.html";
-}
-
-function afficherCalendrier(){
-
-    document
-        .getElementById("zoneCalendrier")
-        .style.display = "block";
-}
-
-function validerAutreDate(){
-
-    const date =
-        document.getElementById("autreDate").value;
-
-    if(!date){
-
-        alert(
-            "Sélectionne une date 😊"
-        );
-
-        return;
-    }
-
-    localStorage.setItem(
-        "dateChoisie",
-        date
-    );
-
-    window.location.href =
-        "message.html";
-}
-
-</script>
 
 </head>
 
@@ -156,90 +102,117 @@ function validerAutreDate(){
 
 <div class="card">
 
-<h2>
-Excellent choix, Elise. 😊
-</h2>
+<h1>
+Et si on passait une soirée ensemble la semaine prochaine ?
+</h1>
 
-<p>
-Quel créneau te conviendrait le mieux ?
-</p>
+<div class="zone">
 
-<button
-class="date bloque"
-disabled>
+<div id="nonBloc">
 
-🔒 Lundi 12 octobre au soir
-
-<br><br>
-
-(indisponible pour cause de L'Amour est dans le Pré 📺❤️)
-
+<button id="non">
+Non merci
 </button>
 
-<button
-class="date"
-onclick="choisir('Mardi 13 octobre')">
+<div id="phrase"></div>
 
-🌙 Mardi 13 octobre au soir
+</div>
 
-</button>
-
-<button
-class="date"
-onclick="choisir('Mercredi 14 octobre')">
-
-🌙 Mercredi 14 octobre au soir
-
-</button>
-
-<button
-class="date"
-onclick="choisir('Jeudi 15 octobre')">
-
-🌙 Jeudi 15 octobre au soir
-
-</button>
-
-<button
-class="date"
-onclick="choisir('Vendredi 16 octobre')">
-
-🌙 Vendredi 16 octobre au soir
-
-</button>
-
-<button
-class="date"
-onclick="afficherCalendrier()">
-
-✨ Choisir une autre date
-
-</button>
-
-<div id="zoneCalendrier">
-
-<br>
-
-<input
-type="date"
-id="autreDate"
-min="2026-10-20"
-max="2026-10-21">
-
-<br><br>
-
-<button
-class="date"
-onclick="validerAutreDate()">
-
-Valider cette date
-
+<button id="oui">
+Je me laisse tenter
 </button>
 
 </div>
 
+<div class="tip">
+Par curiosité, essaie de cliquer sur "Non merci"... 😉
 </div>
+
+</div>
+
+<script>
+
+const phrases = [
+
+"Bien essayé 😏",
+"Raté.",
+"Toujours pas.",
+"Je vois que tu es persévérante.",
+"Cette option semble indisponible.",
+"Essaie encore.",
+"Tu chauffes... ou pas.",
+"Je préférais l'autre bouton.",
+"Tu croyais vraiment que c'était une option ? 😌",
+"Décidément...",
+"Quel acharnement.",
+"Je t'assure que l'autre bouton fonctionne très bien.",
+"Presque !",
+"Non, non et toujours non.",
+"C'est pourtant écrit « Non merci »...",
+"Je commence à admirer ta détermination."
+
+];
+
+const bloc = document.getElementById("nonBloc");
+const boutonNon = document.getElementById("non");
+const boutonOui = document.getElementById("oui");
+const phrase = document.getElementById("phrase");
+
+let tentatives = 0;
+
+function fuite(){
+
+    tentatives++;
+
+    const zone = document.querySelector(".zone");
+
+    const largeur = zone.clientWidth - 220;
+    const hauteur = 150;
+
+    const x = Math.max(10,Math.random()*largeur);
+    const y = Math.max(10,Math.random()*hauteur);
+
+    bloc.style.left = x + "px";
+    bloc.style.top = y + "px";
+
+    let texte =
+        phrases[Math.floor(Math.random()*phrases.length)];
+
+    if(tentatives === 8){
+        texte = "Bon... tu as assez joué maintenant 😄";
+    }
+
+    if(tentatives === 12){
+        texte = "Tu sais très bien lequel tu vas finir par choisir.";
+    }
+
+    phrase.innerText = texte;
+}
+
+boutonNon.addEventListener("mouseenter", fuite);
+boutonNon.addEventListener("click", function(e){
+    e.preventDefault();
+    fuite();
+});
+
+boutonNon.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    fuite();
+});
+
+boutonOui.addEventListener("click", function(){
+
+    boutonOui.innerText = "Excellent choix, Elise 😌";
+
+    setTimeout(function(){
+
+        window.location.href = "dates.html";
+
+    },1200);
+
+});
+
+</script>
 
 </body>
-
 </html>
